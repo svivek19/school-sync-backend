@@ -13,7 +13,7 @@ const getStudentAll = async (req, res) => {
 // get one student data
 const getStudentbyId = async (req, res) => {
   try {
-    const { id } = req.param;
+    const { id } = req.body;
     const student = await studentData.findById({ _id: id });
     res.status(201).json(student);
   } catch (error) {
@@ -31,4 +31,27 @@ const createStudent = async (req, res) => {
   }
 };
 
-module.exports = { createStudent, getStudentAll, getStudentbyId };
+// delete one student
+const deleteOneStudent = async (req, res) => {
+  try {
+    const { id } = req.param;
+    const student = await studentData.deleteOne(id);
+
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    res
+      .status(201)
+      .json({ message: "Student deleted successfully", data: student });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  createStudent,
+  getStudentAll,
+  getStudentbyId,
+  deleteOneStudent,
+};
