@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const studentRoutes = require("./routes/students.route");
 
 dotenv.config();
@@ -11,8 +12,8 @@ const db = process.env.MONGODB_URI;
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use("/student", studentRoutes);
 app.use(express.json());
+app.use(cors());
 
 // Connect to MongoDB
 mongoose
@@ -28,3 +29,6 @@ mongoose
   .catch((error) => {
     console.log(error.message);
   });
+
+// routes
+app.use("/student", studentRoutes);
