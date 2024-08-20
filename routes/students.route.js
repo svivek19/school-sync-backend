@@ -9,8 +9,8 @@ const {
 const router = express.Router();
 
 router.get("/get", getStudentAll);
+router.get("/get-one/:id", getStudentbyId);
 router.post("/add-student", createStudent);
-router.post("/get-one", getStudentbyId);
-router.delete("/delete-student", deleteOneStudent);
+router.delete("/delete-student/:id", deleteOneStudent);
 
 module.exports = router;
