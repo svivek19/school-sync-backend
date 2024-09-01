@@ -12,11 +12,11 @@ const getStudentAll = async (req, res) => {
 
 // get one student data
 const getStudentbyId = async (req, res) => {
-  console.log(req);
+  // console.log(req);
 
   try {
     const { id } = req.params;
-    console.log(id);
+    // console.log(id);
 
     const student = await studentData.findById({ _id: id });
     res.status(200).json(student);
@@ -42,7 +42,7 @@ const deleteOneStudent = async (req, res) => {
 
     const student = await studentData.deleteOne({ _id: id });
 
-    if (!student) {
+    if (student.deleteCount === 0) {
       return res.status(404).json({ message: "Student not found" });
     }
 
