@@ -54,9 +54,38 @@ const deleteOneStudent = async (req, res) => {
   }
 };
 
+// Update student
+const updateStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    // Find and update the student record
+    const student = await studentData.findOneAndUpdate(
+      { _id: id }, // Filter
+      { $set: updateData }, // Update
+      { new: true } // Options: return the updated document
+    );
+
+    // If student not found, respond with a 404 error
+    if (!student) {
+      return res.status(404).json({ message: "Student not found." });
+    }
+
+    // Send the updated student data in the response
+    return res
+      .status(200)
+      .json({ message: "Student data updated!", data: student });
+  } catch (error) {
+    // Handle errors and send an appropriate response
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createStudent,
   getStudentAll,
   getStudentbyId,
   deleteOneStudent,
+  updateStudent,
 };
