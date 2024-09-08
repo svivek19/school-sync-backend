@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const studentRoutes = require("./routes/students.route");
+const FreeSourceRoute = require("./routes/FreeSourceRoute");
 
 dotenv.config();
 const app = express();
@@ -32,3 +33,4 @@ mongoose
 
 // routes
 app.use("/student", studentRoutes);
+app.use("/freesource", FreeSourceRoute);
